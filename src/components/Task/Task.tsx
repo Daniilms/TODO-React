@@ -1,23 +1,25 @@
 import { useState } from "react";
 import "./Task.css";
+import { TaskInt } from "../../const/const";
 
 interface taskProps {
-  task: task;
+  task: TaskInt;
+  todos: TaskInt[];
+  todosSetter: (todos: TaskInt[]) => void;
 }
 export function Task({ task, todos, todosSetter }: taskProps) {
-  const [currentStatus, setCurrentStatus] = useState(false);
-  function deleteTask(id) {
-    const newArr = todos.filter((todo) => todo !== id);
+  const [, setCurrentStatus] = useState(false);
+
+  function deleteTask(cTask: TaskInt) {
+    const newArr = todos.filter((todo) => todo !== cTask);
     todosSetter(newArr);
   }
-  function changeTaskStatus(id) {
-    const updatedArr = [];
-    console.log(id);
+  function changeTaskStatus(cTask: TaskInt) {
+    const updatedArr: TaskInt[] = [];
 
     todos.map((todo) => {
-      if (todo === id) {
+      if (todo === cTask) {
         todo.status = !todo.status;
-        todo.time = new Date().getSeconds();
         updatedArr.push(todo);
         todos.splice(todos.indexOf(todo), 1);
       }
@@ -35,6 +37,9 @@ export function Task({ task, todos, todosSetter }: taskProps) {
         setCurrentStatus(false);
       }
     });
+  }
+  if (task === null) {
+    return <div>Loading</div>;
   }
   return (
     <li className={task.status ? `task task-done` : `task`}>

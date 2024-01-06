@@ -1,9 +1,15 @@
+import { TaskInt } from "../../const/const";
 import "./input.css";
 import { useState } from "react";
 
-export function Input({ todosSetter, todos }) {
+interface InputProps {
+  todos: TaskInt[];
+  todosSetter: (todos: TaskInt[]) => void;
+}
+export function Input({ todosSetter, todos }: InputProps) {
   const [text, setIsText] = useState("");
-  function changeInputValue(evt) {
+
+  function changeInputValue(evt: React.ChangeEvent<HTMLInputElement>) {
     setIsText(evt.target.value);
   }
   function clearInput() {
@@ -30,7 +36,7 @@ export function Input({ todosSetter, todos }) {
         />
         <button
           className="input-button button"
-          onClick={(evt) => {
+          onClick={() => {
             todosSetter([{ text, status: false }, ...todos]);
           }}
         >
