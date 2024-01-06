@@ -2,10 +2,10 @@ import { Input } from "./components/Input/Input";
 import "./App.css";
 import { TasksList } from "./components/TasksList/TasksList";
 import { useState } from "react";
+import { TaskInt } from "./const/const";
 
 function App() {
-  const [todos, setTodos] = useState([]);
-  console.log(todos);
+  const [todos, setTodos] = useState<TaskInt[]>([]);
 
   return (
     <div className="app">

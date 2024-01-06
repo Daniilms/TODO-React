@@ -1,7 +1,13 @@
 import { Task } from "../Task/Task";
+import { TaskInt } from "../../const/const";
 import "./TasksList.css";
-export function TasksList({ todos, todosSetter }) {
-  if (todos.length === 0) {
+
+interface TasksListProps {
+  todos: TaskInt[];
+  todosSetter: (todos: TaskInt[]) => void;
+}
+export function TasksList({ todos, todosSetter }: TasksListProps) {
+  if (todos === null || todos.length === 0) {
     return (
       <div className="tasks-list-empty">
         <h2 className="tasks-list-empty-header">
@@ -16,9 +22,9 @@ export function TasksList({ todos, todosSetter }) {
     return Math.random() * (max - min + 1);
   }
   return (
-    <ul className="tasks-list" style={todos.length > 0 ? { height: todos } : 0}>
-      {todos.length !== 0
-        ? todos.map((task: string) => {
+    <ul className="tasks-list">
+      {todos !== null && todos.length !== 0
+        ? todos.map((task: TaskInt) => {
             return (
               <Task
                 key={generateNum()}
