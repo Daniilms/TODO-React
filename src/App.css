@@ -3,9 +3,7 @@ body {
   box-sizing: border-box;
   background-color: gray;
 }
-.app {
-  margin: 200px 0 0 0;
-}
+
 .container {
   max-width: 1440px;
   margin: 0 auto;
@@ -14,30 +12,44 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100vh;
 }
 .app-content {
-  width: 80%;
+  width: 100%;
+  max-width: 550px;
   height: 60vh;
-  padding: 0 30px 30px 30px;
-
-  background: #25283f;
-
-  /* border: 3px solid #25283f; */
+  background: white;
   border-radius: 15px;
   display: flex;
   align-items: center;
   flex-direction: column;
 }
 .app-top-decoration {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0 0 0;
+  width: 85%;
   background-color: white;
   border-radius: 15px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  padding: 30px 30px 0 30px;
 }
 .app-header {
-  font-size: 50px;
+  font-size: 35px;
+  text-align: center;
   color: #25283f;
   margin: 0 0 0 0;
+}
+.app-header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 87%;
+}
+@media (max-height: 1100px) {
+  .app-content {
+    height: 70vh;
+  }
 }

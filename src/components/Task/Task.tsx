@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./Task.css";
 import { TaskInt } from "../../const/const";
 
@@ -8,12 +7,11 @@ interface taskProps {
   todosSetter: (todos: TaskInt[]) => void;
 }
 export function Task({ task, todos, todosSetter }: taskProps) {
-  const [, setCurrentStatus] = useState(false);
-
   function deleteTask(cTask: TaskInt) {
     const newArr = todos.filter((todo) => todo !== cTask);
     todosSetter(newArr);
   }
+
   function changeTaskStatus(cTask: TaskInt) {
     const updatedArr: TaskInt[] = [];
 
@@ -26,39 +24,60 @@ export function Task({ task, todos, todosSetter }: taskProps) {
     });
 
     todosSetter([...todos, updatedArr[0]]);
-    setTimeout(() => {}, 2000);
-  }
-
-  function checkForStatus() {
-    todos.map((todo) => {
-      if (todo.status) {
-        setCurrentStatus(true);
-      } else {
-        setCurrentStatus(false);
-      }
-    });
   }
   if (task === null) {
     return <div>Loading</div>;
   }
+  console.log(task.text.length);
+
   return (
-    <li className={task.status ? `task task-done` : `task`}>
-      <p>{task.text}</p>
-      <div className="task-buttons">
-        <button
-          className="button task-button task-button-done"
-          onClick={() => {
-            changeTaskStatus(task);
-            checkForStatus();
-          }}
-        >
-          Done
-        </button>
+    <li className={task.status ? "task task-done" : "task"}>
+      <p
+        className={
+          task.text.length > 20 ? "task-text task-text-small" : "task-text"
+        }
+      >{`${todos.indexOf(task) + 1}.${task.text}`}</p>
+      <div className={"task-buttons"}>
+        {!task.status ? (
+          <button
+            className="button task-button task-button-done"
+            onClick={() => {
+              changeTaskStatus(task);
+            }}
+          >
+            <img src="../../../img/done-btn.svg" alt="close button" />
+          </button>
+        ) : null}
         <button
           className="button task-button task-button-delete"
           onClick={() => deleteTask(task)}
         >
-          Delete
+          <svg
+            width="60px"
+            height="60px"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <circle
+                className="c"
+                stroke="#FFFFFF"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path className="d" fill="#FFFFFF" />
+            </defs>
+
+            <g id="a" />
+
+            <g id="b">
+              <circle className="d" cx="12" cy="12" r="10.5" />
+
+              <line className="c" x1="6.75" x2="17.25" y1="6.75" y2="17.25" />
+
+              <line className="c" x1="17.25" x2="6.75" y1="6.75" y2="17.25" />
+            </g>
+          </svg>
         </button>
       </div>
     </li>

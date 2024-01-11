@@ -1,0 +1,23 @@
+.choice-list {
+  width: 75%;
+  height: 40%;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-height: 1100px) {
+  .choice-list {
+    align-items: center;
+    justify-content: center;
+  }
+}
+@media (max-height: 749px) {
+  .choice-list {
+    width: 67%;
+    height: 39%;
+    align-items: center;
+    justify-content: center;
+  }
+}
