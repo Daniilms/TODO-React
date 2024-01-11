@@ -1,34 +1,85 @@
-/* .input-wrp {
-  display: flex;
-  height: 27%;
-  margin: 90px 0 0 0;
-  -webkit-box-shadow: 0px 14px 8px 0px rgba(31, 32, 34, 0.2);
-  -moz-box-shadow: 0px 14px 8px 0px rgba(31, 32, 34, 0.2);
-  box-shadow: 0px 14px 8px 0px rgba(31, 32, 34, 0.2);
-} */
-.form {
-  display: flex;
-  margin: 90px 0 40px 0;
-  -webkit-box-shadow: 0px 14px 8px 0px rgba(31, 32, 34, 0.2);
-  -moz-box-shadow: 0px 14px 8px 0px rgba(31, 32, 34, 0.2);
-  box-shadow: 0px 14px 8px 0px rgba(31, 32, 34, 0.2);
-}
-.input {
-  font-size: 30px;
+.input-wrp {
+  /* position: relative; */
   width: 100%;
-  padding: 20px;
-  border: 2px solid #25283f;
-  color: #25283f;
-  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
 }
 .button {
   font-size: 20px;
   color: white;
   text-align: center;
   border: 2px solid #25283f;
-  padding: 20px 30px;
+  padding: 10px 30px;
   margin: 0 0 0 -5px;
   background-color: #25283f;
   border-radius: 5px;
   cursor: pointer;
+}
+.input-closed {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 0;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity ease-in-out 0.3s;
+}
+.input-closed-shown {
+  opacity: 1;
+  z-index: 1;
+  width: 88%;
+}
+.input-closed-header {
+  color: #5c6372;
+  margin: 0;
+}
+.input-closed-button {
+  text-align: center;
+  color: #5c6372;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+}
+.form {
+  /* position: absolute; */
+  display: flex;
+  width: 0;
+  opacity: 1;
+  /* right: -75%; */
+  /* transform: translate(-95%); */
+  margin: 15px 0 40px;
+}
+.form-opened {
+  opacity: 1;
+  width: 100%;
+}
+.input {
+  font-size: 30px;
+  width: 0;
+  padding: 0;
+  opacity: 0;
+  border: 2px solid #25283f;
+  color: #25283f;
+  border-radius: 5px;
+  transition: all ease-in-out 2.4s;
+}
+.form-opened .input {
+  opacity: 1;
+  padding: 0 20px 0 20px;
+  width: 100%;
+}
+.input-button {
+  width: 0;
+  padding: 0;
+  opacity: 0;
+  text-align: center;
+  z-index: -1;
+  transition: all ease-in-out 1.4s;
+}
+.form-opened .input-button {
+  z-index: 1;
+  opacity: 1;
+  width: 40%;
+  /* padding: 10px 40px; */
 }
