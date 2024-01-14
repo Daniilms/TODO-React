@@ -28,7 +28,6 @@ export function Task({ task, todos, todosSetter }: taskProps) {
   if (task === null) {
     return <div>Loading</div>;
   }
-  console.log(task.text.length);
 
   return (
     <li className={task.status ? "task task-done" : "task"}>
