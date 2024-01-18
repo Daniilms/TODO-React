@@ -1,37 +1,27 @@
-import { ArrsLengthObject, Choice } from "../../const/const";
+import { Choice, State, TaskInt } from "../../const/const";
 import { Link } from "react-router-dom";
 import "./ChoiceCard.css";
-import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 interface ChoiceCardProps {
   choice: Choice;
-  allArraysLength: ArrsLengthObject[];
-  inputSetter: (showInput: boolean) => void;
-  pathSetter: (path: string) => void;
 }
-export function ChoiceCard({
-  choice,
-  allArraysLength,
-  inputSetter,
-  pathSetter,
-}: ChoiceCardProps) {
-  useEffect(() => {
-    window.addEventListener("popstate", () => {
-      inputSetter(false);
-      pathSetter("/");
+export function ChoiceCard({ choice }: ChoiceCardProps) {
+  const todosList = useSelector((state: State) => state.todoList);
+
+  function calculateQuantity() {
+    const arr: TaskInt[] = [];
+
+    todosList.map((task) => {
+      if (choice.name === task.category) {
+        arr.push(task);
+      }
     });
-    return () => {
-      window.removeEventListener("popstate", () => {});
-    };
-  });
+    return arr.length;
+  }
+
   return (
-    <Link
-      className="choice-card"
-      to={`/Tasks/${choice.name}`}
-      onClick={() => {
-        inputSetter(true);
-      }}
-    >
+    <Link className="choice-card" to={`/Tasks/${choice.name}`}>
       <div className="choice-card-content">
         <img
           className="choice-card-img"
@@ -40,15 +30,9 @@ export function ChoiceCard({
         />
         <h3 className="choice-card-header">{choice.name}</h3>
         <p className="choice-card-quantity">
-          {allArraysLength?.map((arr: ArrsLengthObject) => {
-            if (arr.name === choice.name) {
-              return `${
-                Number(arr.length) !== 1
-                  ? `${arr.length} tasks`
-                  : `${arr.length} task`
-              }`;
-            }
-          })}{" "}
+          {calculateQuantity() !== 1
+            ? `${calculateQuantity()} tasks`
+            : `${calculateQuantity()} task`}
         </p>
       </div>
     </Link>

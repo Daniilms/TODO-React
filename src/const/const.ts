@@ -1,12 +1,16 @@
+import { store } from "../store/store";
+
 export interface TaskInt {
   text: string;
-  status: boolean;
+  status?: string;
   category: string;
+  id: number;
 }
 export interface Choice {
   name: string;
   imgSrc: string;
 }
+export type State = ReturnType<typeof store.getState>;
 
 export const choiceArray: Choice[] = [
   { name: "Personal", imgSrc: "person.svg" },

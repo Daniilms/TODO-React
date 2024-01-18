@@ -46,8 +46,6 @@
   display: flex;
   width: 0;
   opacity: 1;
-  /* right: -75%; */
-  /* transform: translate(-95%); */
   margin: 15px 0 40px;
 }
 .form-opened {

@@ -1,20 +1,14 @@
 import { Task } from "../Task/Task";
-import { TaskInt } from "../../const/const";
+import { State, TaskInt } from "../../const/const";
 import "./TasksList.css";
-import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 
-interface TasksListProps {
-  todos: TaskInt[];
-  todosSetter: (todos: TaskInt[]) => TaskInt[];
-  pathSetter: (path: string) => void;
-}
+export function TasksList() {
+  const todosList = useSelector((state: State) => state.todoList);
 
-export function TasksList({ pathSetter, todos, todosSetter }: TasksListProps) {
-  const path = window.location.pathname;
-  const currentPath = path.slice(7, path.length).toLocaleLowerCase();
-  useEffect(() => {
-    pathSetter(currentPath);
-  });
+  const path = useLocation();
+  const currentPath = path.pathname;
 
   function generateNum() {
     const min = 0;
@@ -22,7 +16,7 @@ export function TasksList({ pathSetter, todos, todosSetter }: TasksListProps) {
     return Math.random() * (max - min + 1);
   }
 
-  if (todos === undefined || todos.length === 0) {
+  if (todosList === undefined || todosList.length === 0) {
     return (
       <div className="tasks-list-empty">
         <h2 className="tasks-list-empty-header">
@@ -34,18 +28,11 @@ export function TasksList({ pathSetter, todos, todosSetter }: TasksListProps) {
 
   return (
     <ul className="tasks-list">
-      {todos !== undefined && todos.length !== 0
-        ? todos.map((task: TaskInt) => {
-            return (
-              <Task
-                key={generateNum()}
-                task={task}
-                todos={todos}
-                todosSetter={todosSetter}
-              />
-            );
-          })
-        : null}
+      {todosList.map((task: TaskInt) => {
+        if (task.category === currentPath.slice(7, currentPath.length)) {
+          return <Task key={generateNum()} task={task} todosList={todosList} />;
+        }
+      })}
     </ul>
   );
 }
