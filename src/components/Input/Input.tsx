@@ -1,15 +1,17 @@
-import { TaskInt } from "../../const/const";
+import { useLocation } from "react-router-dom";
+
+import { fillTodoList } from "../../store/action";
+import { store } from "../../store/store";
 import "./input.css";
 import { useState } from "react";
 
-interface InputProps {
-  todos: TaskInt[];
-  todosSetter: (todos: TaskInt[]) => void;
-  path: string;
-}
-export function Input({ todosSetter, todos, path }: InputProps) {
+export function Input() {
   const [text, setText] = useState("");
   const [showForm, setShowForm] = useState(false);
+
+  const path = useLocation();
+
+  const currentPath = path.pathname;
 
   function changeInputValue(evt: React.ChangeEvent<HTMLInputElement>) {
     setText(evt.target.value);
@@ -22,6 +24,11 @@ export function Input({ todosSetter, todos, path }: InputProps) {
       return false;
     }
     return true;
+  }
+  function generateNum() {
+    const min = 0;
+    const max = 100000;
+    return Math.random() * (max - min + 1);
   }
   return (
     <div className="input-wrp">
@@ -60,10 +67,14 @@ export function Input({ todosSetter, todos, path }: InputProps) {
           className="input-button button"
           onClick={() => {
             validate()
-              ? todosSetter([
-                  { text, status: false, category: path.slice(7, path.length) },
-                  ...todos,
-                ])
+              ? store.dispatch(
+                  fillTodoList({
+                    text: text,
+                    status: "",
+                    category: currentPath.slice(7, currentPath.length),
+                    id: generateNum(),
+                  })
+                )
               : 0;
           }}
         >

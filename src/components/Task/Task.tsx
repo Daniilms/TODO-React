@@ -1,47 +1,30 @@
 import "./Task.css";
 import { TaskInt } from "../../const/const";
+import { store } from "../../store/store";
+import { deleteTask, makeDone } from "../../store/action";
 
 interface taskProps {
   task: TaskInt;
-  todos: TaskInt[];
-  todosSetter: (todos: TaskInt[]) => void;
+  todosList: TaskInt[];
 }
-export function Task({ task, todos, todosSetter }: taskProps) {
-  function deleteTask(cTask: TaskInt) {
-    const newArr = todos.filter((todo) => todo !== cTask);
-    todosSetter(newArr);
-  }
-
-  function changeTaskStatus(cTask: TaskInt) {
-    const updatedArr: TaskInt[] = [];
-
-    todos.map((todo) => {
-      if (todo === cTask) {
-        todo.status = !todo.status;
-        updatedArr.push(todo);
-        todos.splice(todos.indexOf(todo), 1);
-      }
-    });
-
-    todosSetter([...todos, updatedArr[0]]);
-  }
+export function Task({ task }: taskProps) {
   if (task === null) {
     return <div>Loading</div>;
   }
 
   return (
-    <li className={task.status ? "task task-done" : "task"}>
+    <li className={task.status === "Done" ? "task task-done" : "task"}>
       <p
         className={
           task.text.length > 20 ? "task-text task-text-small" : "task-text"
         }
-      >{`${todos.indexOf(task) + 1}.${task.text}`}</p>
+      >{`${task.text}`}</p>
       <div className={"task-buttons"}>
         {!task.status ? (
           <button
             className="button task-button task-button-done"
             onClick={() => {
-              changeTaskStatus(task);
+              store.dispatch(makeDone(task));
             }}
           >
             <img src="../../../img/done-btn.svg" alt="close button" />
@@ -49,7 +32,7 @@ export function Task({ task, todos, todosSetter }: taskProps) {
         ) : null}
         <button
           className="button task-button task-button-delete"
-          onClick={() => deleteTask(task)}
+          onClick={() => store.dispatch(deleteTask(task.id))}
         >
           <svg
             width="60px"
