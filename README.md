@@ -27,5 +27,6 @@ Like a regular TODO App, choose category of task, then write something in input.
 - HTML5
 - CSS3
 - React
+- Vite
 - Redux
 - React-router
