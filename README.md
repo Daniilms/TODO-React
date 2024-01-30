@@ -2,7 +2,7 @@
 
 ## About
 
-This is a TODO App. You can add , delete and change status for your tasks. Also you can add your tasks to different folders.
+This is a TODO App. You can also add , delete and change the status of your tasks. Also you can add your tasks to different folders.
 
 ## Current status
 
@@ -20,7 +20,7 @@ The application is finished.
 
 ## How to use
 
-Like a regular TODO App, choose category of task, then write something in input.
+Like a regular TODO App, choose the category of a task, then enter something in input.
 
 ## Used technologies
 
